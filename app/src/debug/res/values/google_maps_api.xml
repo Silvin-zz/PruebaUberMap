@@ -1,0 +1,18 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=15:1F:30:1D:21:9A:7A:38:4D:98:29:39:10:9F:FF:F2:6D:D7:F1:6E%3Bpikino.mymap
+
+    You can also add your credentials to an existing key, using this line:
+    15:1F:30:1D:21:9A:7A:38:4D:98:29:39:10:9F:FF:F2:6D:D7:F1:6E;pikino.mymap
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="AIzaSyByi4PRc7YK8zxWkzh3wBEbt7Ang1aGpws" translatable="false" templateMergeStrategy="preserve">
+
+    </string>
+</resources>
