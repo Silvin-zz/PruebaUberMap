@@ -11,8 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -63,12 +65,16 @@ public class MainActivity extends AppCompatActivity implements
     double longitude;
     private GPSTracker gps;
     private LatLng curentpoint;
+    private Button buttonOk;
+    private String strResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         markerText = (TextView) findViewById(R.id.locationMarkertext);
+        buttonOk   = (Button)   findViewById(R.id.map_button_ok);
+        strResult  = "";
         //Address = (TextView) findViewById(R.id.adressText);
         markerLayout = (LinearLayout) findViewById(R.id.locationMarker);
         // Getting Google Play availability status
@@ -114,7 +120,17 @@ public class MainActivity extends AppCompatActivity implements
                     .addOnConnectionFailedListener(this).build();
 
             mGoogleApiClient.connect();
-            stupMap();
+            //stupMap();
+
+            buttonOk.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(MainActivity.this,strResult, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+
         }
     }
 
@@ -140,8 +156,9 @@ public class MainActivity extends AppCompatActivity implements
 
                                 @Override
                                 public void onLocationChanged(Location location) {
-                                    /*markerText.setText("Location received: "
-                                            + location.toString());*/
+                                    strResult  = "Lat: "        + String.valueOf(location.getLatitude());
+                                    strResult += "\n long:"     + String.valueOf(location.getLongitude());
+                                    strResult += "\nAddress: "  + String.valueOf(markerText.getText());
 
 
                                     /**
