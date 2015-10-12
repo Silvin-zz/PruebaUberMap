@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements
     private LocationRequest mLocationRequest;
     GoogleMap mGoogleMap;
 
+
+
+    public static final String  TAG ="MainResult";
     public static String ShopLat;
     public static String ShopPlaceId;
     public static String ShopLong;
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         markerText = (TextView) findViewById(R.id.locationMarkertext);
-        Address = (TextView) findViewById(R.id.adressText);
+        //Address = (TextView) findViewById(R.id.adressText);
         markerLayout = (LinearLayout) findViewById(R.id.locationMarker);
         // Getting Google Play availability status
         int status = GooglePlayServicesUtil
@@ -137,8 +140,15 @@ public class MainActivity extends AppCompatActivity implements
 
                                 @Override
                                 public void onLocationChanged(Location location) {
-                                    markerText.setText("Location received: "
-                                            + location.toString());
+                                    /*markerText.setText("Location received: "
+                                            + location.toString());*/
+
+
+                                    /**
+                                     * Aqui obtenemos toda la cadena que contiene la latitud y longitud.
+                                     * :)
+                                     * */
+
 
                                 }
                             });
@@ -174,11 +184,12 @@ public class MainActivity extends AppCompatActivity implements
             curentpoint = new LatLng(latitude, longitude);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(curentpoint).zoom(19f).tilt(70).build();
+                    .target(curentpoint).zoom(17).tilt(20).build();
 
             mGoogleMap.setMyLocationEnabled(true);
             mGoogleMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
+            mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             // Clears all the existing markers
             mGoogleMap.clear();
 
@@ -189,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements
                     // TODO Auto-generated method stub
                     center = mGoogleMap.getCameraPosition().target;
 
-                    markerText.setText(" Set your Location ");
+                    markerText.setText(" . . .  ");
                     mGoogleMap.clear();
                     markerLayout.setVisibility(View.VISIBLE);
 
@@ -215,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements
 
                         Marker m = mGoogleMap.addMarker(new MarkerOptions()
                                 .position(latLng1)
-                                .title(" Set your Location ")
+                                .title(" . . . ")
                                 .snippet("")
                                 .icon(BitmapDescriptorFactory
                                         .fromResource(R.drawable.ic_place_black_24dp)));
@@ -267,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         protected void onPreExecute() {
-            Address.setText(" Getting location ");
+            //Address.setText(" Getting location ");
         }
 
         @Override
@@ -302,8 +313,15 @@ public class MainActivity extends AppCompatActivity implements
         @Override
         protected void onPostExecute(String result) {
             try {
-                Address.setText(addresses.get(0).getAddressLine(0)
+                markerText.setText(addresses.get(0).getAddressLine(0)
                         + addresses.get(0).getAddressLine(1) + " ");
+
+                Log.d(TAG, addresses.get(0).getAddressLine(0)
+                        + addresses.get(0).getAddressLine(1) + " ");
+
+
+                /*Address.setText(addresses.get(0).getAddressLine(0)
+                        + addresses.get(0).getAddressLine(1) + " ");*/
             } catch (Exception e) {
                 e.printStackTrace();
             }
